@@ -70,6 +70,29 @@
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
+        gap: 40px;
+        background: none;
+        position: static;
+        height: auto;
+        white-space: nowrap;
+    }
+
+    #ai-assistant {
+        left: 24px;
+        right: auto;
+        top: 90px;
+        bottom: auto;
+        width: 320px;
+        height: 420px;
+        border-radius: 14px;
+    }
+}
+
+    .nav ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
         gap: 40px; /* väčšie medzery medzi položkami */
         background: none;
         position: static;
@@ -254,10 +277,12 @@ h2::after {
             line-height: 1.7;
         }
     html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 90px;
-    }
-
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+section {
+    scroll-margin-top: 90px;
+}
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
@@ -393,6 +418,7 @@ header {
     right: -200px;
     filter: blur(60px);
     animation: floatGlow 8s ease-in-out infinite;
+    pointer-events: none;
 }
 
 /* Jemná vlna dole */
@@ -409,6 +435,7 @@ header {
         transparent 70%
     );
     border-radius: 50%;
+    pointer-events: none;
 }
 
 /* Animácia */
@@ -518,6 +545,7 @@ header {
     <li><a href="#pohyb" onclick="closeMenu()">Pohyb</a></li>
     <li><a href="#prevencia" onclick="closeMenu()">Prevencia</a></li>
     <li><a href="#mental" onclick="closeMenu()">Záver</a></li>
+    <li><a href="#relax-hra" onclick="closeMenu()">Hra</a></li>
     <li><a href="#test" onclick="closeMenu()">Test</a></li>
     <li><a href="#pomoc" onclick="closeMenu()">Pomoc</a></li>
 </ul>
@@ -756,6 +784,7 @@ header {
     }
 </style>
 <section class="section" id="stres">
+<div class="bg-word">STRES</div>
 <div class="container">
 
     <!-- ĽAVÁ STRANA – TEXT -->
@@ -1074,6 +1103,7 @@ header {
 </style>
 <section class="section section-alt" id="zivotny-styl">
     <div class="container">
+       <div class="bg-word">BALANCE</div>
 
         <!-- ĽAVÁ STRANA – TEXT -->
         <div class="lifestyle-text fade-in">
@@ -1500,6 +1530,11 @@ header {
         </div>
     </div>
 </section>
+<div class="wave-divider">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path fill="#ffffff" d="M0,64L1440,0L1440,100L0,100Z"></path>
+    </svg>
+</div>
 <style>
     /* ================= CONCLUSION SECTION ================= */
 
@@ -1664,6 +1699,72 @@ header {
             </div>
 
         </div>
+    </div>
+</section>
+
+<section class="section section-alt" id="relax-hra">
+    <div class="container">
+        <div class="games-grid">
+<div class="game-box">
+            <h2>Relax hra – Dychový rytmus</h2>
+            <p>
+                Sleduj animáciu a dýchaj podľa pokynov.
+                Dokonči 5 cyklov pre úplné uvoľnenie.
+            </p>
+
+            <div class="breathing-circle" id="breathingCircle">
+                <span id="breathText">Stlač Štart</span>
+            </div>
+
+            <div class="game-controls">
+
+    <select id="gameMode" style="padding:8px; border-radius:6px;">
+        <option value="normal">Normal</option>
+        <option value="hard">Hard</option>
+        <option value="insane">Insane</option>
+    </select>
+
+    <select id="soundSelect" style="padding:8px; border-radius:6px;">
+        <option value="none">Bez zvuku</option>
+        <option value="ocean">🌊 Šum mora</option>
+        <option value="white">🎧 Biely šum</option>
+        <option value="forest">🌿 Les</option>
+    </select>
+
+    <button class="btn btn-primary" onclick="startBreathingGame()">Štart</button>
+    <button class="btn btn-outline" onclick="resetBreathingGame()">Reset</button>
+
+</div>
+
+
+            <div class="game-stats">
+                <p>Cykly: <strong id="cycleCount">0</strong> / 5</p>
+               </div>
+           
+
+        </div>
+      <div class="game-box">
+
+    <h2>Klikacia hra – Zbav sa stresu</h2>
+    <p>
+        Klikaj na stresové myšlienky a odstráň ich.
+        Máš 30 sekúnd.
+    </p>
+
+    <div class="click-game-area" id="clickGameArea">
+        <div class="click-score">
+            Body: <strong id="clickScore">0</strong> |
+            Čas: <strong id="clickTime">30</strong>s
+        </div>
+    </div>
+
+    <div class="game-controls">
+        <button class="btn btn-primary" onclick="startClickGame()">Štart hry</button>
+        <button class="btn btn-outline" onclick="resetClickGame()">Reset</button>
+    </div>
+   <div id="clickResult" style="margin-top:20px; display:none; text-align:center; font-weight:600;"></div>
+
+</div>
     </div>
 </section>
 <style>
@@ -2179,9 +2280,25 @@ body.dark #test.section-alt::before {
     box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     display: none;
     flex-direction: column;
-    z-index: 9999;
+    z-index: 20000;
 }
-
+@media (min-width: 901px) {
+    #ai-assistant {
+        left: 24px;
+        right: auto;
+    }
+}
+@media (max-width: 900px) {
+    #ai-assistant {
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 60%;
+        bottom: 0;
+        top: auto;
+        border-radius: 20px 20px 0 0;
+    }
+}
 .ai-header {
     background: #0f172a;
     color: #fff;
@@ -2380,7 +2497,15 @@ body.dark .final-note p {
 .nav ul li a.active::after {
     width: 100%;
 }
+.wave-divider {
+    line-height: 0;
+}
 
+.wave-divider svg {
+    display: block;
+    width: 100%;
+    height: 80px;
+}
 /* ================= AI BUTTON – BETTER LOOK ================= */
 
 .ai-btn {
@@ -2447,6 +2572,277 @@ body.dark .section-image img {
     width: 0%;
     background: linear-gradient(90deg, #2563eb, #38bdf8);
     z-index: 999999;
+}
+/* ================= FLOATING SYMBOL PATTERNS ================= */
+
+.section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,\
+<svg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'>\
+<g fill='none' stroke='%232563eb' stroke-width='1' opacity='0.18'>\
+<circle cx='40' cy='40' r='20'/>\
+<rect x='120' y='30' width='30' height='30'/>\
+<path d='M60 140 L90 170 L120 140'/>\
+<line x1='150' y1='120' x2='170' y2='160'/>\
+</g>\
+</svg>");
+    background-size: 200px 200px;
+    animation: floatPattern 60s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatPattern {
+    0% { background-position: 0 0; }
+    100% { background-position: 400px 400px; }
+}
+/* ================= SIDE ORNAMENTS ================= */
+
+.section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* všeobecný ornament */
+.section::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(80px);
+    border-radius: 50%;
+}
+
+.section > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* DARK MODE – silnejší kontrast */
+body.dark .section::after {
+    opacity: 0.12;
+}
+
+#stres::after {
+    top: 5%;
+    left: -250px;
+    background: radial-gradient(circle at center, #2563eb 20%, transparent 70%);
+}
+#stres::before {
+    background-image: url("data:image/svg+xml,\
+<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg'>\
+<g fill='none' stroke='%232563eb' stroke-width='2' opacity='0.18'>\
+<path d='M50 100 Q100 40 150 100 T250 100'/>\
+<circle cx='100' cy='100' r='30'/>\
+</g>\
+</svg>");
+}
+#dusevne-zdravie::after {
+    bottom: 5%;
+    right: -250px;
+    background: radial-gradient(circle at center, #38bdf8 20%, transparent 70%);
+}
+
+#zivotny-styl::after {
+    top: 15%;
+    right: -280px;
+    background: radial-gradient(circle at center, #16a34a 20%, transparent 70%);
+}
+#zivotny-styl::before {
+    background-image: url("data:image/svg+xml,\
+<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg'>\
+<g fill='none' stroke='%2316a34a' stroke-width='1' opacity='0.18'>\
+<path d='M100 40 Q140 100 100 160 Q60 100 100 40'/>\
+</g>\
+</svg>");
+}
+#regeneracia::after {
+    bottom: 20%;
+    left: -280px;
+    background: radial-gradient(circle at center, #6366f1 20%, transparent 70%);
+}
+#regeneracia::before {
+    background-image: url("data:image/svg+xml,\
+<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg'>\
+<g fill='none' stroke='%236366f1' stroke-width='1' opacity='0.18'>\
+<path d='M80 100 A40 40 0 1 1 120 100'/>\
+<path d='M40 150 Q100 120 160 150'/>\
+</g>\
+</svg>");
+}
+#pohyb::after {
+    top: 30%;
+    right: -300px;
+    background: radial-gradient(circle at center, #f59e0b 20%, transparent 70%);
+}
+#pohyb::before {
+    background-image: url("data:image/svg+xml,\
+<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg'>\
+<g stroke='%23f59e0b' stroke-width='1' opacity='0.18'>\
+<line x1='0' y1='0' x2='200' y2='200'/>\
+<line x1='50' y1='0' x2='200' y2='150'/>\
+</g>\
+</svg>");
+}
+#prevencia::after {
+    bottom: 25%;
+    left: -300px;
+    background: radial-gradient(circle at center, #14b8a6 20%, transparent 70%);
+}
+#mental::after {
+    top: 20%;
+    right: -260px;
+    background: radial-gradient(circle at center, #8b5cf6 20%, transparent 70%);
+}
+#test::after {
+    bottom: 15%;
+    left: -300px;
+    background: radial-gradient(circle at center, #ef4444 20%, transparent 70%);
+}
+#pomoc::after {
+    top: 20%;
+    right: -260px;
+    background: radial-gradient(circle at center, #0ea5e9 20%, transparent 70%);
+}
+
+/* ================= BACKGROUND WORD ================= */
+
+.bg-word {
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    font-size: 120px;
+    font-weight: 700;
+    color: rgba(37,99,235,0.08);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+body.dark .bg-word {
+    color: rgba(255,255,255,0.04);
+}
+
+/* ================= RELAX GAME ================= */
+
+.game-wrapper {
+    max-width: 600px;
+}
+
+.breathing-circle {
+    width: 220px;
+    height: 220px;
+    margin: 40px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, #38bdf8, #2563eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    transition: transform 4s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 20px 60px rgba(37,99,235,0.4);
+}
+
+.breathing-circle.expand {
+    transform: scale(1.4);
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.game-stats {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+}
+/* ================= TWO GAMES GRID ================= */
+
+.games-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+.game-box {
+    max-width: 600px;
+}
+
+@media (max-width: 1000px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CLICK GAME */
+
+.click-game-area {
+    position: relative;
+    height: 300px;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.click-score {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    color: #ffffff;
+    font-size: 14px;
+    z-index: 10;
+}
+
+.bubble {
+    position: absolute;
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    animation: floatUp 6s linear forwards;
+    transition: transform 0.2s ease;
+    font-weight: 600;
+}
+
+.bubble:hover {
+    transform: scale(1.15);
+}
+
+/* DOBRÉ – odstrániš stres */
+.bubble.good {
+    background: #ef4444;
+    color: #fff;
+}
+
+/* ZLÉ – klikol si na pozitívnu vec */
+.bubble.bad {
+    background: #22c55e;
+    color: #fff;
+}
+
+/* BOMBA */
+.bubble.bomb {
+    background: #111827;
+    color: #fff;
+    border: 2px solid #facc15;
+    box-shadow: 0 0 15px #facc15;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(40px); opacity: 1; }
+    to { transform: translateY(-260px); opacity: 0; }
 }
 </style>
 </main>
@@ -2682,5 +3078,301 @@ window.addEventListener("scroll", () => {
     });
 });
 </script>
+<script>
+let cycle = 0;
+let phaseIndex = 0;
+let gameRunning = false;
+let breathingAudio = null;
+
+const phases = [
+    { text: "Nadýchni sa", duration: 4000, expand: true },
+    { text: "Zadrž dych", duration: 4000, expand: true },
+    { text: "Vydýchni", duration: 6000, expand: false }
+];
+
+function handleBreathingSound() {
+    const select = document.getElementById("soundSelect").value;
+
+    if (breathingAudio) {
+        breathingAudio.pause();
+        breathingAudio = null;
+    }
+
+    if (select === "none") return;
+
+    breathingAudio = new Audio();
+
+    if (select === "ocean") {
+        breathingAudio.src = "https://cdn.pixabay.com/audio/2022/10/16/audio_9a6e66fd61.mp3";
+    }
+    if (select === "white") {
+        breathingAudio.src = "https://cdn.pixabay.com/audio/2022/03/15/audio_07e28d7e0f.mp3";
+    }
+    if (select === "forest") {
+        breathingAudio.src = "https://cdn.pixabay.com/audio/2022/03/15/audio_9b3b4db2fd.mp3";
+    }
+
+    breathingAudio.loop = true;
+    breathingAudio.volume = 0.5;
+    breathingAudio.play();
+}
+
+function startBreathingGame() {
+    if (gameRunning) return;
+
+    const mode = document.getElementById("gameMode").value;
+
+    if (mode === "normal") {
+        phases[0].duration = 4000;
+        phases[1].duration = 4000;
+        phases[2].duration = 6000;
+    }
+
+    if (mode === "hard") {
+        phases[0].duration = 3000;
+        phases[1].duration = 3000;
+        phases[2].duration = 4000;
+    }
+
+    if (mode === "insane") {
+        phases[0].duration = 2000;
+        phases[1].duration = 2000;
+        phases[2].duration = 3000;
+    }
+
+    handleBreathingSound();
+    gameRunning = true;
+    runPhase();
+}
+
+function runPhase() {
+    const circle = document.getElementById("breathingCircle");
+    const text = document.getElementById("breathText");
+    const phase = phases[phaseIndex];
+
+    text.innerText = phase.text;
+
+    if (phase.expand) {
+        circle.classList.add("expand");
+    } else {
+        circle.classList.remove("expand");
+    }
+
+    setTimeout(() => {
+        phaseIndex++;
+
+        if (phaseIndex >= phases.length) {
+            phaseIndex = 0;
+            cycle++;
+            document.getElementById("cycleCount").innerText = cycle;
+
+            if (cycle >= 5) {
+                text.innerText = "Hotovo ✔";
+                circle.classList.remove("expand");
+                gameRunning = false;
+                return;
+            }
+        }
+
+        if (gameRunning) runPhase();
+
+    }, phase.duration);
+}
+
+function resetBreathingGame() {
+    cycle = 0;
+    phaseIndex = 0;
+    gameRunning = false;
+
+    document.getElementById("cycleCount").innerText = "0";
+    document.getElementById("breathText").innerText = "Stlač Štart";
+    document.getElementById("breathingCircle").classList.remove("expand");
+
+    if (breathingAudio) {
+        breathingAudio.pause();
+        breathingAudio = null;
+    }
+}
+</script>
+<script>
+let clickScore = 0;
+let clickTime = 30;
+let clickInterval;
+let bubbleInterval;
+let clickRunning = false;
+
+let level = 1;
+let combo = 0;
+let spawnSpeed = 700;
+let gameMode = "normal";
+
+const goodWords = ["Skúška", "Termín", "Tlak", "Úzkosť"];
+const badWords = ["Pokoj", "Sebavedomie", "Rovnováha"];
+const bombWords = ["💣"];
+
+function startClickGame() {
+    if (clickRunning) return;
+
+    gameMode = document.getElementById("gameMode").value;
+
+    level = 1;
+    combo = 0;
+    clickScore = 0;
+    clickTime = 30;
+    clickRunning = true;
+
+    adjustDifficulty();
+
+    document.getElementById("clickGameArea").innerHTML =
+        `<div class="click-score">
+            Body: <strong id="clickScore">0</strong> |
+            Čas: <strong id="clickTime">30</strong>s |
+            Level: <strong id="level">1</strong> |
+            Combo: <strong id="combo">0</strong>
+        </div>`;
+
+    document.getElementById("clickResult").style.display = "none";
+
+    bubbleInterval = setInterval(createBubble, spawnSpeed);
+
+    clickInterval = setInterval(() => {
+        clickTime--;
+        document.getElementById("clickTime").innerText = clickTime;
+
+        if (clickTime % 10 === 0) {
+            level++;
+            document.getElementById("level").innerText = level;
+            adjustDifficulty();
+        }
+
+        if (clickTime <= 0) {
+            endClickGame();
+        }
+    }, 1000);
+}
+
+function adjustDifficulty() {
+    if (gameMode === "normal") spawnSpeed = 700 - (level * 30);
+    if (gameMode === "hard") spawnSpeed = 600 - (level * 40);
+    if (gameMode === "insane") spawnSpeed = 500 - (level * 50);
+
+    if (spawnSpeed < 200) spawnSpeed = 200;
+
+    clearInterval(bubbleInterval);
+    bubbleInterval = setInterval(createBubble, spawnSpeed);
+}
+
+function createBubble() {
+    const currentBubbles = document.querySelectorAll(".bubble").length;
+if (currentBubbles >= 6) return;
+    const area = document.getElementById("clickGameArea");
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    const random = Math.random();
+
+    if (random < 0.6) {
+        bubble.classList.add("good");
+        bubble.innerText = goodWords[Math.floor(Math.random()*goodWords.length)];
+       bubble.onclick = () => {
+    document.getElementById("popSound").play();
+    combo++;
+    clickScore += 2 * combo;
+    updateStats();
+    bubble.remove();
+};
+    }
+    else if (random < 0.85) {
+        bubble.classList.add("bad");
+        bubble.innerText = badWords[Math.floor(Math.random()*badWords.length)];
+        bubble.onclick = () => {
+            combo = 0;
+            clickScore -= 5;
+            updateStats();
+            bubble.remove();
+        };
+    }
+    else {
+        bubble.classList.add("bomb");
+        bubble.innerText = bombWords[0];
+        bubble.onclick = () => {
+    document.getElementById("bombSound").play();
+    combo = 0;
+    clickScore -= 10;
+    updateStats();
+    bubble.remove();
+};
+    }
+
+    bubble.style.left = Math.random() * 85 + "%";
+    bubble.style.bottom = "0px";
+
+    area.appendChild(bubble);
+
+    setTimeout(() => bubble.remove(), 6000);
+}
+
+function updateStats() {
+    document.getElementById("clickScore").innerText = clickScore;
+    document.getElementById("combo").innerText = combo;
+}
+
+function endClickGame() {
+    clearInterval(clickInterval);
+    clearInterval(bubbleInterval);
+    clickRunning = false;
+
+    const resultBox = document.getElementById("clickResult");
+    resultBox.style.display = "block";
+
+    let rank;
+
+    if (clickScore >= 100) rank = "🏆 MASTER";
+    else if (clickScore >= 60) rank = "🔥 PRO";
+    else if (clickScore >= 30) rank = "💪 GOOD";
+    else if (clickScore >= 0) rank = "⚠ BEGINNER";
+    else rank = "💀 CHAOS";
+
+    let best = localStorage.getItem("bestScore") || 0;
+    if (clickScore > best) {
+        localStorage.setItem("bestScore", clickScore);
+        best = clickScore;
+    }
+
+    resultBox.innerHTML = `
+        <div style="font-size:20px;margin-bottom:10px;">
+            ${rank}
+        </div>
+        <div>Skóre: ${clickScore}</div>
+        <div>Najlepší výsledok: ${best}</div>
+    `;
+}
+
+function resetClickGame() {
+    clearInterval(clickInterval);
+    clearInterval(bubbleInterval);
+    clickRunning = false;
+
+    clickScore = 0;
+    clickTime = 30;
+    combo = 0;
+    level = 1;
+
+    document.getElementById("clickGameArea").innerHTML =
+        `<div class="click-score">
+            Body: <strong id="clickScore">0</strong> |
+            Čas: <strong id="clickTime">30</strong>s
+        </div>`;
+
+    document.getElementById("clickResult").style.display = "none";
+}
+
+
+</script>
+<audio id="bgSound" loop></audio>
+
+<audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<audio id="bombSound" src="https://assets.mixkit.co/active_storage/sfx/2588/2588-preview.mp3"></audio>
 </body>
 </html>
