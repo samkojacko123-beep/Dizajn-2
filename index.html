@@ -17,7 +17,7 @@
 
 
 /* MOBIL – ZÁKLAD (skryté menu) */
-.nav ul {
+#nav-menu {
     list-style: none;
     display: none;
     flex-direction: column;
@@ -30,52 +30,136 @@
         display: block;
     }
 
-    .nav ul {
-        position: fixed;
-        top: 72px;
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 72px);
-        background: #020617;
-        flex-direction: column;
-        padding: 16px 0;
-        display: none;
-        z-index: 1000;
-    }
+   #nav-menu {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 72px);
+    background: #020617;
+    flex-direction: column;
+    padding: 16px 0;
+    display: flex;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
 
-    .nav ul.show {
-        display: flex;
-    }
-
+#nav-menu.show {
+    transform: translateX(0);
+}
 
     .nav ul li {
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .nav ul li a {
-        display: block;
-        padding: 18px 24px;
-        font-size: 16px;
-    }
 }
 /* DESKTOP MENU (nad 901px) */
+/* ================= PREMIUM DESKTOP MENU ================= */
+
 @media (min-width: 901px) {
 
     .menu-toggle {
         display: none;
     }
 
-    .nav ul {
-        display: flex;
+    .nav {
+        height: 72px;
+    }
+
+    #nav-menu {
+        display: flex !important;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-start;
-        gap: 40px;
-        background: none;
+        justify-content: center;
+        gap: 36px;
+
         position: static;
         height: auto;
+        transform: none !important;
+
+        background: transparent;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    #nav-menu li {
+        list-style: none;
+    }
+
+    #nav-menu li a {
+        font-size: 15px;
+        font-weight: 600;
+        padding: 8px 0;
+        color: #e5e7eb;
         white-space: nowrap;
     }
+}
+
+    #nav-menu li {
+        list-style: none;
+    }
+
+    #nav-menu li a {
+        position: relative;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 8px 0;
+        color: #e5e7eb;
+        transition: all 0.25s ease;
+    }
+
+    /* Hover underline animation */
+    #nav-menu li a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(90deg, #2563eb, #38bdf8);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+    }
+
+    #nav-menu li a:hover {
+        color: #ffffff;
+    }
+
+    #nav-menu li a:hover::after {
+        width: 70%;
+    }
+
+    /* Active state */
+    #nav-menu li a.active {
+        color: #ffffff;
+    }
+
+    #nav-menu li a.active::after {
+        width: 100%;
+    }
+
+    /* AI BUTTON UPGRADE */
+    .ai-btn {
+        margin-left: 30px;
+        padding: 10px 20px;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #2563eb, #38bdf8);
+        font-weight: 600;
+        font-size: 14px;
+        box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ai-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(37,99,235,0.5);
+    }
+
+}
+
 
     #ai-assistant {
         left: 24px;
@@ -86,19 +170,9 @@
         height: 420px;
         border-radius: 14px;
     }
-}
 
-    .nav ul {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 40px; /* väčšie medzery medzi položkami */
-        background: none;
-        position: static;
-        height: auto;
-        white-space: nowrap; /* zabráni zalamovaniu */
-    }
+
+
 
 .nav ul li a {
     font-size: 17px;      /* väčšie písmo */
@@ -110,6 +184,10 @@
     justify-content: center; /* horizontálne vycentrovanie */
     transition: color 0.3s;
 }
+.nav ul {
+    display: flex;
+    align-items: center;
+    gap: 36px;
 }
 /* ===================== EXTRA VISUAL BOOST ===================== */
 
@@ -117,18 +195,7 @@
     position: relative;
 }
 
-.section::before, .section-alt::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom right,
-        rgba(37, 99, 235, 0.05),
-        rgba(255, 255, 255, 0.05)
-    );
-    pointer-events: none;
-    z-index: 0;
-}
+
 
 .section > *, .section-alt > * {
     position: relative;
@@ -355,6 +422,7 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 72px;
+    gap: 40px;
 }
 
 
@@ -983,11 +1051,74 @@ header {
 <style>
     /* ================= HEALTHY LIFESTYLE – PREMIUM ================= */
 
+/* ================= PREMIUM LIFESTYLE REDESIGN ================= */
+
 .lifestyle-grid {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 72px;
-    align-items: flex-start;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: stretch;
+    margin-top: 60px;
+}
+
+.lifestyle-text {
+    padding: 40px;
+    background: linear-gradient(
+        135deg,
+        rgba(37,99,235,0.05),
+        rgba(56,189,248,0.05)
+    );
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(15,23,42,0.08);
+}
+
+.lifestyle-text h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.lifestyle-text p {
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.meal-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 25px 70px rgba(15,23,42,0.12);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.meal {
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.meal:last-child {
+    border-bottom: none;
+}
+
+.meal strong {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.meal span {
+    color: #475569;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .lifestyle-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .lifestyle-text,
+    .meal-card {
+        padding: 28px;
+    }
 }
 
 /* LEFT TEXT */
@@ -1104,6 +1235,7 @@ header {
 <section class="section section-alt" id="zivotny-styl">
     <div class="container">
        <div class="bg-word">BALANCE</div>
+       <div class="lifestyle-grid">
 
         <!-- ĽAVÁ STRANA – TEXT -->
         <div class="lifestyle-text fade-in">
@@ -1146,7 +1278,7 @@ header {
         </div>
 
        
-
+</div> <!-- zatvára lifestyle-grid -->
     </div>
 </section>
 
@@ -1718,18 +1850,7 @@ header {
 
             <div class="game-controls">
 
-    <select id="gameMode" style="padding:8px; border-radius:6px;">
-        <option value="normal">Normal</option>
-        <option value="hard">Hard</option>
-        <option value="insane">Insane</option>
-    </select>
 
-    <select id="soundSelect" style="padding:8px; border-radius:6px;">
-        <option value="none">Bez zvuku</option>
-        <option value="ocean">🌊 Šum mora</option>
-        <option value="white">🎧 Biely šum</option>
-        <option value="forest">🌿 Les</option>
-    </select>
 
     <button class="btn btn-primary" onclick="startBreathingGame()">Štart</button>
     <button class="btn btn-outline" onclick="resetBreathingGame()">Reset</button>
@@ -2158,22 +2279,22 @@ function evaluateTest() {
 
 
 <style>
-.nav ul li {
+#nav-menu.show li {
     opacity: 0;
     transform: translateY(-10px);
     animation: navFade 0.6s ease forwards;
 }
 
-.nav ul li:nth-child(1) { animation-delay: 0.05s; }
-.nav ul li:nth-child(2) { animation-delay: 0.1s; }
-.nav ul li:nth-child(3) { animation-delay: 0.15s; }
-.nav ul li:nth-child(4) { animation-delay: 0.2s; }
-.nav ul li:nth-child(5) { animation-delay: 0.25s; }
-.nav ul li:nth-child(6) { animation-delay: 0.3s; }
-.nav ul li:nth-child(7) { animation-delay: 0.35s; }
-.nav ul li:nth-child(8) { animation-delay: 0.4s; }
-.nav ul li:nth-child(9) { animation-delay: 0.45s; }
-.nav ul li:nth-child(10) { animation-delay: 0.5s; }
+#nav-menu.show li:nth-child(1) { animation-delay: 0.05s; }
+#nav-menu.show li:nth-child(2) { animation-delay: 0.1s; }
+#nav-menu.show li:nth-child(3) { animation-delay: 0.15s; }
+#nav-menu.show li:nth-child(4) { animation-delay: 0.2s; }
+#nav-menu.show li:nth-child(5) { animation-delay: 0.25s; }
+#nav-menu.show li:nth-child(6) { animation-delay: 0.3s; }
+#nav-menu.show li:nth-child(7) { animation-delay: 0.35s; }
+#nav-menu.show li:nth-child(8) { animation-delay: 0.4s; }
+#nav-menu.show li:nth-child(9) { animation-delay: 0.45s; }
+#nav-menu.show li:nth-child(10) { animation-delay: 0.5s; }
 
 @keyframes navFade {
     to {
@@ -2346,6 +2467,13 @@ body.dark #test.section-alt::before {
     background: var(--primary);
     cursor: pointer;
 }
+@media (max-width: 900px) {
+   .ai-btn {
+      display: inline-block;
+      margin-left: 12px;
+   }
+}
+
 /* ===== DARK MODE — VIDITEĽNÝ TEXT V BUBLINÁCH ===== */
 
 /* DARK MODE – sekcie */
@@ -2859,6 +2987,8 @@ body.dark .bg-word {
                     zameraný na vplyv stresu na duševné zdravie a imunitu
                     študentov. Cieľom je zvýšiť povedomie o význame prevencie,
                     zdravého životného štýlu a včasnej pomoci.
+
+                   Project created by Samuel Jacko and Adam Duč
                 </p>
             </div>
 
@@ -2894,22 +3024,38 @@ body.dark .bg-word {
 </footer>
 <script>
     let lastTopic = null;
+   let aiTimeout;
 
-    const presetAnswers = {
-    stres: "Stres je prirodzená reakcia organizmu na záťažové situácie. Krátkodobo pomáha mobilizovať výkon, no dlhodobo môže poškodzovať zdravie.",
-    priznaky: "Medzi bežné príznaky stresu patrí nervozita, únava, poruchy spánku, podráždenosť, bolesti hlavy a znížená koncentrácia.",
-    dlhodoby: "Dlhodobý stres môže viesť k úzkostiam, depresii, vyhoreniu a oslabeniu imunitného systému.",
-    riesenie: "Stres je možné zvládať pomocou psychohygieny, pravidelného oddychu, pohybu, dychových techník a správneho time managementu.",
-    spanok: "Stres narúša kvalitu spánku a zvyšuje riziko nespavosti. Nedostatok spánku následne stres ešte zhoršuje.",
-    imunita: "Chronický stres zvyšuje hladinu kortizolu, ktorý potláča činnosť imunitného systému a zvyšuje náchylnosť na choroby.",
-    strava: "Vyvážená strava s dostatkom vitamínov, minerálov a pravidelných jedál pomáha stabilizovať energiu a znižovať stres.",
-    studenti: "Študenti sú často vystavení akademickému tlaku, časovej tiesni, skúškam a očakávaniam, čo zvyšuje mieru stresu.",
-    prevencia: "Prevencia stresu zahŕňa pravidelný režim, plánovanie povinností, dostatok spánku a starostlivosť o duševné zdravie.",
-    pomoc: "Odbornú pomoc možno nájsť u psychológa, školského poradcu alebo na linkách dôvery ako IPčko či Nezábudka."
+
+const presetAnswers = {
+
+stres: "Stres je fyziologická a psychologická reakcia organizmu na záťaž. Aktivuje sa tzv. stresová os (hypotalamus – hypofýza – nadobličky), čo vedie k uvoľňovaniu hormónov ako adrenalín a kortizol. Krátkodobo zvyšuje výkon a sústredenie, no dlhodobý stres môže narušiť rovnováhu organizmu a poškodzovať zdravie.",
+
+priznaky: "Príznaky stresu sa prejavujú na troch úrovniach: fyzickej (bolesti hlavy, zrýchlený pulz, napätie svalov), psychickej (úzkosť, podráždenosť, výkyvy nálad) a behaviorálnej (problémy so spánkom, zhoršená koncentrácia, prokrastinácia). Dlhodobé príznaky môžu viesť k vyčerpaniu.",
+
+dlhodoby: "Chronický stres udržiava zvýšenú hladinu kortizolu, čo oslabuje imunitný systém, zvyšuje riziko úzkostných porúch, depresie a syndrómu vyhorenia. Môže tiež negatívne ovplyvniť trávenie, kvalitu spánku a kardiovaskulárne zdravie.",
+
+riesenie: "Zvládanie stresu zahŕňa kombináciu psychohygieny, pravidelného pohybu, kvalitného spánku a efektívneho time managementu. Pomáhajú aj dychové techniky (napr. 4-4-6 dýchanie), mindfulness, obmedzenie kofeínu a realistické plánovanie úloh.",
+
+spanok: "Stres narúša produkciu melatonínu a skracuje hlboké fázy spánku. Nedostatok spánku následne zvyšuje hladinu kortizolu, čo vytvára začarovaný kruh. Odporúča sa pravidelný režim, obmedzenie obrazoviek večer a aspoň 7–9 hodín spánku denne.",
+
+imunita: "Dlhodobý stres potláča činnosť bielych krviniek a znižuje schopnosť tela bojovať proti infekciám. Zvýšený kortizol oslabuje zápalovú odpoveď organizmu, čo môže viesť k častejším ochoreniam a pomalšiemu hojeniu.",
+
+strava: "Vyvážená strava bohatá na vitamíny skupiny B, vitamín C, horčík a omega-3 mastné kyseliny podporuje nervový systém. Nadmerný cukor a kofeín môžu zvyšovať výkyvy energie a nervozitu. Pravidelné jedlá stabilizujú hladinu cukru v krvi a znižujú stresové reakcie.",
+
+studenti: "Študenti čelia akademickému tlaku, časovej tiesni, skúškam a očakávaniam okolia. Kombinácia nedostatku spánku, nepravidelného režimu a vysokých nárokov zvyšuje riziko chronického stresu a psychického vyčerpania.",
+
+prevencia: "Prevencia stresu spočíva v pravidelnom režime, realistickom plánovaní, dostatočnej regenerácii a podpore sociálnych vzťahov. Dôležité je včas rozpoznať varovné signály a reagovať skôr, než dôjde k vyčerpaniu.",
+
+pomoc: "Ak stres presahuje bežnú mieru a ovplyvňuje každodenné fungovanie, je vhodné obrátiť sa na psychológa, školského poradcu alebo linku dôvery. Odborná pomoc pomáha naučiť sa efektívne stratégie zvládania a predchádzať vážnejším problémom."
+
 };
 
-    function askPreset(key) {
+function askPreset(key) {
+
     const messages = document.getElementById("aiMessages");
+
+    clearTimeout(aiTimeout);
 
     messages.innerHTML += `
         <div class="ai-message ai-user">
@@ -2917,7 +3063,7 @@ body.dark .bg-word {
         </div>
     `;
 
-    setTimeout(() => {
+    aiTimeout = setTimeout(() => {
         messages.innerHTML += `
             <div class="ai-message ai-bot">
                 ${presetAnswers[key]}
@@ -2943,7 +3089,9 @@ body.dark .bg-word {
         messages.innerHTML += `<div class="ai-message ai-user">${text}</div>`;
         input.value = "";
 
-        setTimeout(() => {
+        clearTimeout(aiTimeout);
+
+aiTimeout = setTimeout(() => {
             const response = generateResponse(text);
             messages.innerHTML += `<div class="ai-message ai-bot">${response}</div>`;
             messages.scrollTop = messages.scrollHeight;
@@ -3012,7 +3160,8 @@ toggleBtn.addEventListener("click", () => {
 
 <script>
 function toggleMenu() {
-    document.getElementById("nav-menu").classList.toggle("show");
+    const menu = document.getElementById("nav-menu");
+    menu.classList.toggle("show");
 }
 
 function closeMenu() {
@@ -3064,7 +3213,7 @@ window.addEventListener("scroll", () => {
     let current = "";
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
+        const sectionTop = section.offsetTop - header.offsetHeight;
         if (window.scrollY >= sectionTop) {
             current = section.getAttribute("id");
         }
@@ -3082,7 +3231,7 @@ window.addEventListener("scroll", () => {
 let cycle = 0;
 let phaseIndex = 0;
 let gameRunning = false;
-let breathingAudio = null;
+let breathingTimeout;
 
 const phases = [
     { text: "Nadýchni sa", duration: 4000, expand: true },
@@ -3090,57 +3239,9 @@ const phases = [
     { text: "Vydýchni", duration: 6000, expand: false }
 ];
 
-function handleBreathingSound() {
-    const select = document.getElementById("soundSelect").value;
-
-    if (breathingAudio) {
-        breathingAudio.pause();
-        breathingAudio = null;
-    }
-
-    if (select === "none") return;
-
-    breathingAudio = new Audio();
-
-    if (select === "ocean") {
-        breathingAudio.src = "https://cdn.pixabay.com/audio/2022/10/16/audio_9a6e66fd61.mp3";
-    }
-    if (select === "white") {
-        breathingAudio.src = "https://cdn.pixabay.com/audio/2022/03/15/audio_07e28d7e0f.mp3";
-    }
-    if (select === "forest") {
-        breathingAudio.src = "https://cdn.pixabay.com/audio/2022/03/15/audio_9b3b4db2fd.mp3";
-    }
-
-    breathingAudio.loop = true;
-    breathingAudio.volume = 0.5;
-    breathingAudio.play();
-}
-
 function startBreathingGame() {
     if (gameRunning) return;
 
-    const mode = document.getElementById("gameMode").value;
-
-    if (mode === "normal") {
-        phases[0].duration = 4000;
-        phases[1].duration = 4000;
-        phases[2].duration = 6000;
-    }
-
-    if (mode === "hard") {
-        phases[0].duration = 3000;
-        phases[1].duration = 3000;
-        phases[2].duration = 4000;
-    }
-
-    if (mode === "insane") {
-        phases[0].duration = 2000;
-        phases[1].duration = 2000;
-        phases[2].duration = 3000;
-    }
-
-    handleBreathingSound();
     gameRunning = true;
     runPhase();
 }
@@ -3158,7 +3259,7 @@ function runPhase() {
         circle.classList.remove("expand");
     }
 
-    setTimeout(() => {
+    breathingTimeout = setTimeout(() => {
         phaseIndex++;
 
         if (phaseIndex >= phases.length) {
@@ -3180,6 +3281,7 @@ function runPhase() {
 }
 
 function resetBreathingGame() {
+    clearTimeout(breathingTimeout);
     cycle = 0;
     phaseIndex = 0;
     gameRunning = false;
@@ -3187,12 +3289,9 @@ function resetBreathingGame() {
     document.getElementById("cycleCount").innerText = "0";
     document.getElementById("breathText").innerText = "Stlač Štart";
     document.getElementById("breathingCircle").classList.remove("expand");
-
-    if (breathingAudio) {
-        breathingAudio.pause();
-        breathingAudio = null;
-    }
 }
+
+
 </script>
 <script>
 let clickScore = 0;
@@ -3213,7 +3312,7 @@ const bombWords = ["💣"];
 function startClickGame() {
     if (clickRunning) return;
 
-    gameMode = document.getElementById("gameMode").value;
+    gameMode = "normal";
 
     level = 1;
     combo = 0;
@@ -3239,7 +3338,7 @@ function startClickGame() {
         clickTime--;
         document.getElementById("clickTime").innerText = clickTime;
 
-        if (clickTime % 10 === 0) {
+        if (clickTime > 0 && clickTime % 10 === 0) {
             level++;
             document.getElementById("level").innerText = level;
             adjustDifficulty();
@@ -3263,6 +3362,7 @@ function adjustDifficulty() {
 }
 
 function createBubble() {
+   if (!clickRunning) return;
     const currentBubbles = document.querySelectorAll(".bubble").length;
 if (currentBubbles >= 6) return;
     const area = document.getElementById("clickGameArea");
@@ -3310,19 +3410,26 @@ if (currentBubbles >= 6) return;
 
     area.appendChild(bubble);
 
-    setTimeout(() => bubble.remove(), 6000);
+    setTimeout(() => {
+    if (bubble.parentNode) bubble.remove();
+}, 6000);
 }
 
 function updateStats() {
-    document.getElementById("clickScore").innerText = clickScore;
-    document.getElementById("combo").innerText = combo;
+    const scoreEl = document.getElementById("clickScore");
+    const comboEl = document.getElementById("combo");
+
+    if (scoreEl) scoreEl.innerText = clickScore;
+    if (comboEl) comboEl.innerText = combo;
 }
 
 function endClickGame() {
     clearInterval(clickInterval);
     clearInterval(bubbleInterval);
     clickRunning = false;
-
+document.querySelectorAll(".bubble").forEach(b => {
+    b.onclick = null;
+});
     const resultBox = document.getElementById("clickResult");
     resultBox.style.display = "block";
 
